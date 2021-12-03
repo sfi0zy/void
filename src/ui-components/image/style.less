@@ -1,0 +1,47 @@
+// @name Image
+// @description Image with lazy loading and placeholder. If you use an image multiple times per page, the IDs in in the inlined SVGs are duplicated. It's ok for docs, but if you use it on production page, you probably need to generate different placeholders for them. It's a rare case, but be careful.
+//
+// @component Image
+//
+// @markup
+//+ui-image(
+//    '../bin/images/main.png',
+//    './dist/bin/images/main.png.placeholder.svg',
+//    'Some alt text')
+
+
+.@{global-prefix}image {
+    position: relative;
+
+    > .image {
+        display: block;
+        height: auto;
+        // We need to set width for block because image can be replaced with injected SVG and its width is not "100%".
+        width: 100%;
+        max-width: 100%;
+    }
+
+    > .image[data-lazy-image] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity @defaults[animation-duration-long] @defaults[animation-function];
+        will-change: opacity;
+    }
+
+    > .image[data-lazy-image][data-lazy-loaded] {
+        opacity: 1;
+    }
+
+    > noscript > .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    > .image.-placeholder {
+
+    }
+}
+

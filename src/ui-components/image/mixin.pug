@@ -1,0 +1,7 @@
+mixin ui-image(src, placeholder, alt)
+    .ui-image
+        img.image.-placeholder(src=placeholder)
+        img.image(data-lazy-image data-src=src src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' alt=alt)
+        noscript
+            img.image(src=src alt=alt)
+

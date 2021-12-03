@@ -1,0 +1,26 @@
+include ../ui-components/index.pug
+
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1')
+
+        title Void v#{ pkg.version }
+
+        link(rel='stylesheet' href='./main.min.css?v=' + pkg.version)
+
+        link(rel='prefetch' href='../main.min.js?v='  + pkg.version)
+
+    body
+        center
+            h1 Hello, Void!
+            div v#{pkg.version}
+            br
+            span ヾ( °-°)シﾟ`･｡･°*♪･ﾟ’☆
+            br
+            br
+            a(href='/docs') Docs
+
+        script(src='./main.min.js?v=' + pkg.version)
+
