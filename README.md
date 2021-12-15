@@ -111,7 +111,7 @@ The basic process of development looks like this:
 9. Add your non-UI code as modules to ```/src/modules/``` (use the VoidGenerator as an example).
 10. Import your modules to the ```MODULES``` field of the ```APP``` in ```/src/main.js```.
 11. Add the global styles, constants for LESS and your color scheme into the files in ```/src/core/less/```.
-12. Add your UI components to ```/src/ui-components/``` (use Void or Image and an example).
+12. Add your UI components to ```/src/ui-components/``` (use Void as an example and V as an empty template).
 13. Import your UI components to the ```UI``` field of the ```APP``` in ```/src/main.js```, in ```/src/main.less``` and ```/src/ui-components/index.pug```.
 14. Add your pages to ```/src/pages/```. Subdirectories are available.
 15. Run ```npm run prod``` to activate the production build.

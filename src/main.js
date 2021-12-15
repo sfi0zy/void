@@ -35,6 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Components will be saved in UI, so we don't add them to the APP object.
     const components = {
+        // Empty templates
+        V: require('./ui-components/v/script').default,
+
+        // Real components
         Image: require('./ui-components/image/script').default,
         Void:  APP.FLAGS.ENABLE_VOID_EXAMPLES ? require('./ui-components/void/script').default : null,
     };
