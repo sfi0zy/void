@@ -69,6 +69,10 @@ class Ui {
     get(type, id) {
         let result = null;
 
+        if (!this.cache[type]) {
+            return null;
+        }
+
         this.cache[type].forEach((component) => {
             if (component.cache.root.id === id) {
                 result = component;

@@ -67,6 +67,30 @@ export default class Void extends APP.UI.UIComponent {
         this.events.addEventListener('nothing-is-happened',
             this.doNothing.bind(this));
 
+        // Example of parent-child relationship:
+
+        APP.EVENTS.addEventListener('components-created', () => {
+            // We don't have the big tree of all components here.
+            // In fact, we don't really need it in a small landing-type website.
+            // But if you really want to create a relationship between
+            // components - you can do it. But think first.
+            // Don't create connections just to have them.
+
+            // We can get ID of the child in different ways.
+            // Probably we'll use some querySelector from the root of this
+            // component to the root of the child + its id attribute.
+            // It'll be a good idea to use some data-attributes for this kind of
+            // selectors (like for e2e tests), and not rely on html selectors.
+
+            const someChildID = 'some-child-id';
+            const someChild = APP.UI.get('SomeChildType', someChildID);
+
+            if (someChild) {
+                this.children.someChild = someChild;
+                someChild.parent = this;
+            }
+        });
+
         return this;
     }
 

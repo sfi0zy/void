@@ -42,6 +42,12 @@ export default class UIComponent {
         // create the same component twice.
         this.cache.root.setAttribute('data-ui-component', true);
 
+        // We don't have the real big tree of all components here.
+        // But sometimes it's useful to save a connection between two of them.
+        // See Void templates for more information.
+        this.parent = null;
+        this.children = {};
+
         // The state of the component is here. This is an object where we save
         // all data for this instance of UI component. It has no specific rules
         // to deal with it.
