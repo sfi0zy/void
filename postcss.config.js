@@ -14,25 +14,6 @@ require('colors');
 
 module.exports = {
     plugins: [
-        // This plugin adds fallbacks for modern CSS features (stage 2+) we used.
-        require('postcss-preset-env')({
-            warnForDuplicates: false,
-            features: {
-                rem: {
-                    html: false
-                },
-                calc: false
-            }
-        }),
-
-
-        // This one fixes some CSS bugs that we always forget about.
-        // It's not necessary to use it, but it helps sometimes.
-        require('postcss-fixes')({
-            preset: 'safe'
-        }),
-
-
         // This plugin can list IDs in the CSS.
         // We shouldn't use them and it shows to us all of them
         // during the building process.
