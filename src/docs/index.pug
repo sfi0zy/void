@@ -121,12 +121,12 @@ html(lang='en')
                                     li gulp-real-favicon - this one generates icons for different devices from the one big image
                                     li gulp-rename - sometimes we need to rename the files in /dist directory
                                     li gulp-size - shows the sizes of CSS files
-                                    li gulp-util - some utils for node.js
-                            li path - we use paths in node.js
+                                    li gulp-util - some standard utils for node.js
+                            li path - we use paths in node.js in gulpfile and plugins
                             li yargs - adds argc and argv to the gulpfile
-                            li colors - helps to use various colors in the console
+                            li colors - helps to use various colors in the console logs
                             li browser-sync - updates the page in a browser when we use the development mode
-                            li semver - semantic versioner for npm
+                            li semver - semantic versioner for npm, it helps with logs
 
                     li
                         b HTML
@@ -139,14 +139,14 @@ html(lang='en')
                     li
                         b CSS
                         ul(style='padding-left: 2em;')
-                            li gulp-less - we use the LESS preprocessor
+                            li gulp-less - we use the LESS preprocessor for syntax only
                                 ul(style='padding-left: 2em;')
                                     li gulp-sourcemaps - we use it to add sourcemaps for LESS files
-                            li gulp-postcss - we use the PostCSS postprocessor as well
+                            li gulp-postcss - we use the PostCSS postprocessor as well, for technical operations, not for syntax
                                 ul(style='padding-left: 2em;')
                                     li list-selectors - this one helps to find unnecessary ids in the CSS
-                                    li cssnano - compresses the CSS
                                     li doiuse - shows what rules we used without browsers support
+                                    li cssnano - compresses the CSS at the end
                             li gulp-stylelint - gulp wrapper for stylelint
                                 ul(style='padding-left: 2em;')
                                     li stylelint - linter for CSS/LESS
@@ -158,7 +158,7 @@ html(lang='en')
                             li webpack - we use it to build javascript only
                                 ul(style='padding-left: 2em;')
                                     li webpack-stream - needed to integrate webpack into the gulp pipelines
-                                    li babel-loader - webpack requires it
+                                    li babel-loader - webpack requires it for some reason
                                     li webpack-glsl-loader - we can import GLSL code to JS
                             li @babel/core - the babel itself
                                 ul(style='padding-left: 2em;')
@@ -174,8 +174,7 @@ html(lang='en')
                     li
                         b Custom gulp plugins
                         ul(style='padding-left: 2em;')
-                            li gulp-util - some utils for node.js
-                            li through - this package is used in gulp-plugins, better see their code to understand it
+                            li through - this package is used in gulp-plugins, better see their code to understand why
                             li
                                 b Docs
                                 ul(style='padding-left: 2em;')
@@ -184,8 +183,6 @@ html(lang='en')
                                 b SVGPlaceholders
                                 ul(style='padding-left: 2em;')
                                     li handlebars - minimal templating
-                                    li color-thief - extracts the color palette from an image
-                                    li rgb-hex - converts RGB color to HEX
                                     li image-size - extracts image height and width
                             li
                                 b W3C Validator

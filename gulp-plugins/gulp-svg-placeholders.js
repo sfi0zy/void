@@ -13,14 +13,9 @@
 //
 
 const Handlebars = require('handlebars');
-const ColorThief = require('color-thief');
-const rgbHex     = require('rgb-hex');
 const sizeOf     = require('image-size');
 const through    = require('through');
 const File       = require('gulp-util').File;
-
-
-const thief = new ColorThief();
 
 
 const template = `<svg
@@ -55,9 +50,8 @@ module.exports = function SVGPlaceholders() {
         const height = size.height;
         const width  = size.width;
 
-        const palette = thief.getPalette(file._contents, 2);
-        const startColor = `#${rgbHex(...palette[0])}`;
-        const endColor   = `#${rgbHex(...palette[1])}`;
+        const startColor = `#eeeeee`;
+        const endColor   = `#ffffff`;
 
         const gradientUniqueID = `svg-id-${Math.floor(Math.random() * 1000000)}`;
 
