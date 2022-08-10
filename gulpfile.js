@@ -87,13 +87,8 @@ Object.keys(pkg.dependencies).forEach((dependency) => {
         fs.readFileSync(
             path.join('node_modules', dependency, 'package.json'), 'utf-8'));
 
-    if (depPackage._requested.registry) {
-        pkg.dependencies[dependency] = depPackage.version;
-        console.log('NPM %s@%s'.green, dependency, depPackage.version);
-    } else {
-        pkg.dependencies[dependency] = depPackage._resolved;
-        console.log('--- %s@%s'.green, dependency, depPackage._resolved);
-    }
+    pkg.dependencies[dependency] = depPackage.version;
+    console.log('%s@%s'.green, dependency, depPackage.version);
 });
 
 
@@ -104,13 +99,8 @@ Object.keys(pkg.devDependencies).forEach((dependency) => {
         fs.readFileSync(
             path.join('node_modules', dependency, 'package.json'), 'utf-8'));
 
-    if (depPackage._requested.registry) {
-        pkg.devDependencies[dependency] = depPackage.version;
-        console.log('NPM %s@%s'.green, dependency, depPackage.version);
-    } else {
-        pkg.devDependencies[dependency] = depPackage._resolved;
-        console.log('--- %s@%s'.green, dependency, depPackage._resolved);
-    }
+    pkg.devDependencies[dependency] = depPackage.version;
+    console.log('%s@%s'.green, dependency, depPackage.version);
 });
 
 
