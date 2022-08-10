@@ -24,6 +24,14 @@ module.exports = function validate() {
         w3cjs.validate({
             input: file.contents,
             callback: (error, result) => {
+                if (!result) {
+                    console.log('SOMETHING IS WRONG WITH W3C VALIDATOR!'.red);
+                    console.log(filename);
+                    console.log(error.status);
+
+                    return;
+                }
+
                 result.messages.forEach((message) => {
                     switch (message.type) {
                         case 'info': {
