@@ -42,6 +42,8 @@ These tools and detailed comments in the pre-created files with the structure of
 
 ## Getting started
 
+Node v16.16.0 is recommended.
+
 At first, you need to clone the Void and install the dependencies. There are almost 50 dependencies, so it may take some time.
 
 ```sh
@@ -133,7 +135,7 @@ A number of errors and warnings are "predefined" for every type of code in the p
 
 MIT License
 
-Copyright (c) 2021 Ivan Bogachev <sfi0zy@gmail.com>
+Copyright (c) 2021-2022 Ivan Bogachev <sfi0zy@gmail.com>
 
 ヾ( °-°)シﾟ`･｡･°*♪･ﾟ’☆
 
