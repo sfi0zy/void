@@ -16,6 +16,7 @@ The main tools in the boilerplate are:
 - **For HTML:**
     - Pug preprocessor
     - W3C validator
+    - Structured data testing tool
     - Inline SVG images
 - **For CSS:**
     - LESS

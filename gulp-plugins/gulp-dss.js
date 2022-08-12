@@ -25,6 +25,9 @@ module.exports = function gulpDSS(options) {
 
 
     function process(file) {
+        const filename = path.relative('.', file.path);
+        console.log(`DSS: processing file (${filename})...`);
+
         dss.parse(file.contents.toString(), {}, (parsed) => {
             parsed.file = path.relative('.', file.path);
 

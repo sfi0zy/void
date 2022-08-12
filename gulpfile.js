@@ -19,7 +19,7 @@ const browserSync  = require('browser-sync').create();
 
 const dss             = require('./gulp-plugins/gulp-dss.js');
 const SVGPlaceholders = require('./gulp-plugins/gulp-svg-placeholders');
-const validate        = require('./gulp-plugins/gulp-w3c-validate');
+const htmlValidator   = require('./gulp-plugins/gulp-html-validator');
 
 
 require('colors');
@@ -108,7 +108,7 @@ const newPackageJSON = JSON.stringify(pkg, null, 2);
 
 fs.writeFileSync(path.join('package.json'), newPackageJSON, 'utf-8');
 
-console.log('\n\n\n');
+console.log('\n');
 
 
 
@@ -128,6 +128,8 @@ console.log('\n\n\n');
 
 
 gulp.task('void:clean-dist', () => {
+    console.log('cleaning dist...\n');
+
     return gulp.src('./dist/*', { read: false })
         .pipe($.clean());
 });
@@ -135,6 +137,8 @@ gulp.task('void:clean-dist', () => {
 
 
 gulp.task('void:lint-js', () => {
+    console.log('linting js...\n');
+
     return gulp.src('./src/**/*.js')
         .pipe($.eslint())
         .pipe($.eslint.format());
@@ -143,16 +147,20 @@ gulp.task('void:lint-js', () => {
 
 
 gulp.task('void:compile-js', () => {
+    console.log('compiling js...\n');
+
     return gulp.src('./src/main.js')
         .pipe(webpack(require('./webpack.config.js')[ENVIRONMENT]))
         .pipe($.rename('main.min.js'))
         .pipe(gulp.dest('./dist'))
-        .pipe(browserSync.stream());
+        .pipe($.if(ENVIRONMENT === 'development', browserSync.stream()));
 });
 
 
 
 gulp.task('void:lint-less', () => {
+    console.log('\nlinting less...\n');
+
     return gulp.src('./src/**/*.less')
         .pipe($.stylelint({
             failAfterError: false,
@@ -164,6 +172,8 @@ gulp.task('void:lint-less', () => {
 
 
 gulp.task('void:compile-less', () => {
+    console.log('compiling less...\n');
+
     return gulp.src('./src/main.less')
         .pipe($.if(ENVIRONMENT === 'development', $.sourcemaps.init()))
         .pipe($.less())
@@ -172,12 +182,14 @@ gulp.task('void:compile-less', () => {
         .pipe($.rename('main.min.css'))
         .pipe($.size({ showFiles: true }))
         .pipe(gulp.dest('./dist'))
-        .pipe(browserSync.stream());
+        .pipe($.if(ENVIRONMENT === 'development', browserSync.stream()));
 });
 
 
 
 gulp.task('void:generate-favicon', (done) => {
+    console.log('\ngenerating favicons...\n');
+
     $.realFavicon.generateFavicon(
         require('./favicon.config.js'), () => {
             done();
@@ -189,29 +201,37 @@ gulp.task('void:generate-favicon', (done) => {
 
 
 gulp.task('void:copy-images', () => {
+    console.log('copying images...');
+
     return gulp.src('src/bin/images/*')
         .pipe(gulp.dest('dist/bin/images'))
-        .pipe(browserSync.stream());
+        .pipe($.if(ENVIRONMENT === 'development', browserSync.stream()));
 });
 
 
 
 gulp.task('void:copy-3d', () => {
+    console.log('copying 3d models...');
+
     return gulp.src('src/bin/3d/*')
         .pipe(gulp.dest('dist/bin/3d'))
-        .pipe(browserSync.stream());
+        .pipe($.if(ENVIRONMENT === 'development', browserSync.stream()));
 });
 
 
 
 gulp.task('void:copy-fonts', () => {
+    console.log('copying fonts...\n');
+
     return gulp.src('src/bin/fonts/*')
         .pipe(gulp.dest('dist/bin/fonts'))
-        .pipe(browserSync.stream());
+        .pipe($.if(ENVIRONMENT === 'development', browserSync.stream()));
 });
 
 
 gulp.task('void:generate-placeholders', () => {
+    console.log('\ngenerating placeholders...');
+
     return gulp.src('dist/bin/images/*.{jpg,png}')
         .pipe(SVGPlaceholders())
         .pipe(gulp.dest('./dist/bin/images'));
@@ -220,6 +240,8 @@ gulp.task('void:generate-placeholders', () => {
 
 
 gulp.task('void:build-pages', () => {
+    console.log('\nbuilding pages...');
+
     return gulp.src('src/pages/**/*.pug')
         .pipe($.pug({
             locals: {
@@ -232,13 +254,13 @@ gulp.task('void:build-pages', () => {
         .pipe($.injectSvg())
         .pipe(critical(require('./critical.config.js')))
         .pipe(gulp.dest('./dist'))
-        .pipe($.if(ENVIRONMENT === 'production', validate()))
-        .pipe(browserSync.stream());
+        .pipe($.if(ENVIRONMENT === 'development', browserSync.stream()));
 });
 
 
-
 gulp.task('void:build-docs', () => {
+    console.log('\nbuilding docs...');
+
     return gulp.src('./src/ui-components/**/*.less')
         .pipe(dss({
             pkg,
@@ -247,11 +269,16 @@ gulp.task('void:build-docs', () => {
             outputPath: './dist/docs/'
         }))
         .pipe($.injectSvg())
-        .pipe(gulp.dest('./dist/docs/'))
-        .pipe($.if(ENVIRONMENT === 'production', validate()))
-        .pipe(browserSync.stream());
+        .pipe(gulp.dest('./dist/docs/'));
 });
 
+
+gulp.task('void:validate-html', () => {
+    console.log('\nvalidating html...');
+
+    return gulp.src('dist/*.html')
+        .pipe($.if(ENVIRONMENT === 'production', htmlValidator()));
+});
 
 
 // -----------------------------------------------------------------------------
@@ -277,6 +304,7 @@ gulp.task('void', gulp.series(
     'void:generate-placeholders',
     'void:build-pages',
     'void:build-docs',
+    'void:validate-html',
 ));
 
 
@@ -286,6 +314,8 @@ gulp.task('void', gulp.series(
 // -----------------------------------------------------------------------------
 
 gulp.task('browser-sync', () => {
+    console.log('enabling browser-sync...');
+
     browserSync.init({
         server: './dist',
         files: ['./src/**']
@@ -344,6 +374,8 @@ gulp.task('browser-sync', () => {
 gulp.task('default', (done) => {
     switch (ENVIRONMENT) {
         case 'production': {
+            console.log('running production build...');
+
             gulp.series(
                 'void',
             )();
@@ -352,6 +384,8 @@ gulp.task('default', (done) => {
         }
 
         case 'development': {
+            console.log('running development build...');
+
             gulp.series(
                 'void',
                 'browser-sync'

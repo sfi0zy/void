@@ -41,11 +41,11 @@ const template = `<svg
 
 
 module.exports = function SVGPlaceholders() {
-    let filename = '';
-    let svg = '';
+    return through(function(file) {
+        const filename = file.relative;
 
+        console.log(`generating placeholder for image (${filename})...`);
 
-    function process(file) {
         const size = sizeOf(file._contents);
         const height = size.height;
         const width  = size.width;
@@ -55,7 +55,7 @@ module.exports = function SVGPlaceholders() {
 
         const gradientUniqueID = `svg-id-${Math.floor(Math.random() * 1000000)}`;
 
-        svg = Handlebars.compile(template)({
+        const svg = Handlebars.compile(template)({
             height,
             width,
             startColor,
@@ -63,20 +63,10 @@ module.exports = function SVGPlaceholders() {
             gradientUniqueID
         });
 
-        filename = file.relative;
-
         this.emit('data', new File({
             path: `${filename}.placeholder.svg`,
             contents: Buffer.from(svg, 'utf-8')
         }));
-    }
-
-
-    function end() {
-        this.emit('end');
-    }
-
-
-    return through(process, end);
+    });
 };
 

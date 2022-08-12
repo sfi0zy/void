@@ -13,8 +13,8 @@ html(lang='en')
         link(rel='prefetch' href='../main.min.js?v='  + pkg.version)
 
     body
-        center
-            h1 Hello, Void!
+        center(itemscope, itemtype='https://schema.org/ItemPage')
+            h1 Hello, <span itemprop='name'>Void</span>!
             div v#{pkg.version}
             br
             span ヾ( °-°)シﾟ`･｡･°*♪･ﾟ’☆
