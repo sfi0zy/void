@@ -2,10 +2,12 @@
 //  GULP W3C VALIDATOR
 // -----------------------------------------------------------------------------
 //
-//  This plugin validates the compiled pages using the W3C validator.
+//  This plugin validates the compiled pages using the W3C validator
+//  and testing tool for structured data.
 //
-//  See more information about the W3C API here:
+//  See more information about them here:
 //  https://validator.w3.org/docs/api.html
+//  https://github.com/iaincollins/structured-data-testing-tool
 //
 
 
