@@ -3,10 +3,16 @@
 ![version](https://img.shields.io/github/package-json/v/sfi0zy/void?style=flat-square) ![license](https://img.shields.io/github/license/sfi0zy/void?style=flat-square)
 
 
+## The end
+
+**This boilerplate was too big for small experiments and not versatile enough at the same time. This project is closed. It had some cool ideas inside and it'll stay here as an archive for educational purposes. If you're looking for small boilerplate for front-end experiments - consider [sketch](https://github.com/sfi0zy/sketch). It'll have different options for different types of mini projects in the future.**
+
+
+## Description
+
 This is a boilerplate designed for static promotional websites. It's based on Pug templates, LESS, PostCSS and ES6+. No SPA frameworks included.
 
 ![Void](/src/bin/images/main.png)
-
 
 
 ## Features
